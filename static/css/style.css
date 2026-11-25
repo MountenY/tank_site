@@ -1,0 +1,1025 @@
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #080808;
+    color: #f2f2f2;
+    font-family: Montserrat, Arial, sans-serif;
+    min-height: 100vh;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    width: 100%;
+    height: 90px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 7%;
+
+    background: #080808;
+    border-bottom: 1px solid #222;
+}
+
+.logo {
+    font-size: 65px;
+    color: #d00000;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    transition: transform 0.25s ease;
+}
+
+.logo:hover {
+    transform: scale(1.12);
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+
+.navigation a {
+    color: #bdbdbd;
+    font-size: 17px;
+    transition: 0.2s;
+    padding-bottom: 8px;
+}
+
+.navigation a:hover {
+    color: white;
+}
+
+.navigation a.active {
+    color: white;
+    border-bottom: 2px solid #d00000;
+}
+
+
+
+/* =========================
+   HERO — SMOOTH BACKGROUND
+========================= */
+
+/* =========================
+   HERO — FULL SCREEN
+========================= */
+
+.hero {
+    min-height: calc(100vh - 90px);
+
+    display: flex;
+    align-items: center;
+
+    padding: 80px 7%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.15) 0%,
+            rgba(0, 0, 0, 0.25) 55%,
+            rgba(8, 8, 8, 0.85) 90%,
+            #080808 100%
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.92) 0%,
+            rgba(0, 0, 0, 0.65) 50%,
+            rgba(0, 0, 0, 0.15) 100%
+        ),
+        url("/static/images/background.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-content {
+    max-width: 850px;
+}
+
+.hero-label {
+    color: #a0a0a0;
+    letter-spacing: 3px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 800;
+    line-height: 1.08;
+    margin: 25px 0;
+}
+
+.hero p {
+    font-size: 21px;
+    color: #c6c6c6;
+    line-height: 1.5;
+    max-width: 600px;
+}
+
+.button {
+    display: inline-block;
+
+    margin-top: 35px;
+    padding: 18px 28px;
+
+    background: #c90000;
+    border-radius: 8px;
+
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.button:hover {
+    background: #a80000;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   GENERATIONS — ROMAN STYLE
+========================= */
+
+.generation-section {
+    padding: 60px 7% 90px;
+}
+
+.generation-section h2 {
+    font-size: 32px;
+    margin-bottom: 35px;
+}
+
+.generation-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.generation-card {
+    min-width: 0;
+    min-height: 205px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    overflow: hidden;
+
+    padding: 20px 10px;
+
+    background: linear-gradient(
+        145deg,
+        #202020,
+        #151515
+    );
+
+    border: 1px solid #353535;
+    border-radius: 13px;
+
+    transition: 0.3s ease;
+}
+
+.generation-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #c90000;
+
+    background: linear-gradient(
+        145deg,
+        #292020,
+        #171111
+    );
+
+    box-shadow: 0 10px 30px rgba(150, 0, 0, 0.12);
+}
+
+/* Римская цифра */
+
+.generation-roman {
+    font-size: clamp(45px, 4vw, 68px);
+    font-weight: 500;
+    line-height: 1;
+
+    color: #f2f2f2;
+
+    margin-bottom: 22px;
+
+    transition: 0.3s;
+}
+
+.generation-card:hover .generation-roman {
+    color: #d00000;
+}
+
+/* Название и годы */
+
+.generation-period {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: #aaa;
+
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+
+    letter-spacing: 1px;
+}
+
+/* Количество танков */
+
+.generation-count {
+    margin-top: 14px;
+
+    font-size: 12px;
+    color: #777;
+
+    letter-spacing: 1px;
+}
+
+/* Адаптивность */
+
+@media (max-width: 1100px) {
+    .generation-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .generation-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .generation-card {
+        min-height: 175px;
+    }
+
+    .generation-roman {
+        font-size: 48px;
+    }
+}
+
+
+/* =========================
+   CATALOG
+========================= */
+
+.catalog-page {
+    width: 100%;
+    min-height: calc(100vh - 90px);
+    padding: 70px 7% 100px;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.78),
+            rgba(0, 0, 0, 0.78)
+        ),
+        url("/static/images/background.jpg");
+
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Заголовок */
+
+.page-heading {
+    margin-bottom: 45px;
+}
+
+.page-heading h1 {
+    font-size: 56px;
+    margin: 20px 0;
+    font-weight: 800;
+}
+
+.page-heading p {
+    color: #aaa;
+    font-size: 20px;
+}
+
+/* Сетка танков */
+
+.tank-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    width: 100%;
+}
+
+/* Карточка */
+
+.tank-card {
+    display: block;
+
+    min-width: 0;
+
+    background: #191919;
+    border: 1px solid #303030;
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    transition: 0.3s ease;
+}
+
+.tank-card:hover {
+    transform: translateY(-6px);
+    border-color: #a80000;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.35),
+        0 0 15px rgba(180, 0, 0, 0.08);
+}
+
+/* Изображение */
+
+.tank-card-image {
+    width: 100%;
+    height: 270px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(110, 110, 110, 0.11),
+            transparent 70%
+        );
+
+    overflow: hidden;
+}
+
+.tank-card-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    transition: transform 0.35s ease;
+}
+
+.tank-card:hover .tank-card-image img {
+    transform: scale(1.07);
+}
+
+/* Нижняя часть карточки */
+
+.tank-card-info {
+    min-height: 65px;
+
+    padding: 18px;
+
+    background: #202020;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.tank-card-info h3 {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.tank-card-info span {
+    color: #999;
+    font-size: 13px;
+    white-space: nowrap;
+
+    transition: 0.25s;
+}
+
+.tank-card:hover .tank-card-info span {
+    color: #d00000;
+}
+
+/* Адаптивность */
+
+@media (max-width: 1100px) {
+    .tank-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .catalog-page {
+        padding: 50px 25px;
+        background-attachment: scroll;
+    }
+
+    .page-heading h1 {
+        font-size: 40px;
+    }
+
+    .tank-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tank-card-image {
+        height: 250px;
+    }
+}
+
+
+/* =========================
+   TANK PAGE — EDITORIAL
+========================= */
+
+.tank-page {
+    width: 100%;
+    min-height: calc(100vh - 90px);
+    padding: 60px 7% 90px;
+    box-sizing: border-box;
+
+    background:
+    linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.68) 0%,
+        rgba(0, 0, 0, 0.78) 65%,
+        rgba(0, 0, 0, 0.96) 100%
+    ),
+    url("/static/images/background.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* ЗАГОЛОВОК */
+
+.tank-page-heading {
+    margin-bottom: 40px;
+}
+
+.tank-title-block {
+    border-left: 4px solid #c90000;
+    padding-left: 25px;
+}
+
+.tank-title-block h1 {
+    font-size: clamp(48px, 5vw, 76px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-top: 15px;
+}
+
+/* ОСНОВНАЯ СЕТКА */
+
+.tank-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+    gap: 65px;
+
+    width: 100%;
+    align-items: center;
+}
+
+/* ОПИСАНИЕ */
+
+.tank-text {
+    display: block;
+    width: 100%;
+    max-width: 570px;
+    min-width: 0;
+
+    padding: 15px 0;
+}
+
+.description-line {
+    width: 65px;
+    height: 4px;
+    background: #d00000;
+    margin-bottom: 35px;
+}
+
+.tank-description {
+    font-size: clamp(18px, 1.15vw, 21px);
+    line-height: 1.8;
+    color: #dedede;
+
+    /* Естественное форматирование текста */
+    white-space: normal;
+    overflow-wrap: break-word;
+
+    max-width: 650px;
+}
+
+/* ИЗОБРАЖЕНИЕ */
+
+.tank-visual {
+    position: relative;
+    isolation: isolate;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 510px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 35px;
+    overflow: hidden;
+
+    border: 2px solid #850000;
+    border-radius: 17px;
+
+    background: linear-gradient(
+        180deg,
+        #090909 0%,
+        #090909 55%,
+        #300000 100%
+    );
+}
+
+/* ДИАГОНАЛЬ */
+
+.tank-visual::before {
+    content: "";
+
+    position: absolute;
+    z-index: 0;
+
+    top: 0;
+    right: 8%;
+
+    width: 35%;
+    height: 100%;
+
+    background: linear-gradient(
+        180deg,
+        #970000,
+        #4b0000
+    );
+
+    clip-path: polygon(
+        45% 0,
+        100% 0,
+        55% 100%,
+        0 100%
+    );
+}
+
+/* НИЖНЕЕ СВЕЧЕНИЕ */
+
+.tank-visual::after {
+    content: "";
+
+    position: absolute;
+    z-index: 0;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 25%;
+
+    background: linear-gradient(
+        to top,
+        rgba(100,0,0,0.4),
+        transparent
+    );
+}
+
+/* ТАНК */
+
+.tank-visual img {
+    position: relative;
+    z-index: 1;
+
+    display: block;
+    width: 100%;
+    max-height: 530px;
+
+    object-fit: contain;
+
+    filter:
+        brightness(1.08)
+        contrast(1.1)
+        drop-shadow(0 25px 30px rgba(0,0,0,0.7));
+
+    transition: transform 0.35s ease;
+}
+
+.tank-visual:hover img {
+    transform: scale(1.04);
+}
+
+/* НАЗАД */
+
+/* =========================
+   BACK LINK — BUTTON
+========================= */
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 38px;
+    padding: 13px 22px;
+
+    background: rgba(25, 25, 25, 0.9);
+    border: 1px solid #333;
+    border-radius: 8px;
+
+    color: #bdbdbd;
+    font-size: 14px;
+
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: #fff;
+    background: #241515;
+    border-color: #c90000;
+
+    box-shadow: 0 0 15px rgba(200, 0, 0, 0.12);
+
+    transform: translateX(-3px);
+}
+
+/* АДАПТИВ */
+
+@media (max-width: 900px) {
+
+    .tank-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .tank-text {
+        max-width: 750px;
+    }
+
+    .tank-visual {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .tank-page {
+        padding: 45px 22px 65px;
+    }
+
+    .tank-title-block h1 {
+        font-size: 46px;
+    }
+
+    .tank-description {
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    .tank-visual {
+        min-height: 300px;
+        padding: 15px;
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 950px) {
+
+    .tank-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .tank-text {
+        max-width: 800px;
+    }
+
+    .tank-visual {
+        min-height: 430px;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .tank-page {
+        padding: 45px 22px 65px !important;
+    }
+
+    .tank-title-block h1 {
+        font-size: 46px;
+    }
+
+    .tank-description {
+        font-size: 17px;
+    }
+
+    .tank-visual {
+        min-height: 300px;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .tank-visual img {
+        transform: scale(1.08);
+    }
+
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-page {
+    width: 100%;
+    min-height: calc(100vh - 90px);
+
+    padding: 100px 7%;
+    max-width: none;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.85) 0%,
+            rgba(0, 0, 0, 0.65) 55%,
+            rgba(0, 0, 0, 0.3) 100%
+        ),
+        url("/static/images/background.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.about-page h1 {
+    font-size: clamp(45px, 5vw, 75px);
+    line-height: 1.1;
+    margin: 30px 0 50px;
+    max-width: 800px;
+}
+
+.about-text {
+    max-width: 750px;
+}
+
+.about-text p {
+    font-size: 21px;
+    line-height: 1.7;
+    color: #ccc;
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+    .generation-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .tank-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tank-layout {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .header {
+        height: auto;
+        padding: 25px;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .navigation {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        min-height: 500px;
+        padding: 50px 25px;
+    }
+
+    .generation-section,
+    .catalog-page,
+    .tank-page,
+    .about-page {
+        padding: 50px 25px;
+    }
+
+    .generation-grid,
+    .tank-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tank-card-image {
+        height: 250px;
+    }
+
+    .tank-visual {
+        min-height: 280px;
+    }
+
+}
+
+/* =========================
+   TANK CARD — RED HOVER
+========================= */
+
+.tank-card {
+    background: linear-gradient(
+        145deg,
+        #1c1c1c,
+        #151515
+    );
+
+    border: 1px solid #303030;
+    transition: all 0.3s ease;
+}
+
+.tank-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #c90000;
+
+    background: linear-gradient(
+        145deg,
+        #292020,
+        #171111
+    );
+
+    box-shadow:
+        0 10px 30px rgba(150, 0, 0, 0.12),
+        0 0 15px rgba(200, 0, 0, 0.08);
+}
+
+/* Красноватое свечение за танком */
+
+.tank-card-image {
+    transition: background 0.3s ease;
+}
+
+.tank-card:hover .tank-card-image {
+    background: radial-gradient(
+        ellipse at center,
+        rgba(150, 0, 0, 0.16),
+        transparent 72%
+    );
+}
+
+/* =========================
+   TANK ANIMATIONS
+========================= */
+
+/* Плавное появление изображения */
+@keyframes tankAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Лёгкое движение танка */
+@keyframes tankFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+.tank-visual img {
+    animation:
+        tankAppear 0.9s ease-out both,
+        tankFloat 5s ease-in-out 0.9s infinite;
+
+    transition:
+        filter 0.35s ease,
+        transform 0.35s ease;
+}
+
+/* При наведении танк приближается */
+.tank-visual:hover img {
+    animation-play-state: paused;
+    transform: translateY(-5px) scale(1.045);
+
+    filter:
+        brightness(1.15)
+        contrast(1.12)
+        drop-shadow(0 30px 35px rgba(150, 0, 0, 0.2));
+}
+
+/* Подсветка рамки */
+.tank-visual {
+    transition:
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.tank-visual:hover {
+    border-color: #e00000;
+
+    box-shadow:
+        0 0 12px rgba(200, 0, 0, 0.15),
+        0 0 35px rgba(200, 0, 0, 0.08);
+}
+
+/* Движение красной диагонали */
+.tank-visual::before {
+    transition: transform 0.5s ease;
+}
+
+.tank-visual:hover::before {
+    transform: translateX(-12px);
+}
+
+/* Нижняя часть карточки */
+
+.tank-card-info {
+    transition: background 0.3s ease;
+}
+
+.tank-card:hover .tank-card-info {
+    background: #241717;
+}
+
+/* Ссылка */
+
+.tank-card-info span {
+    transition: color 0.3s ease;
+}
+
+.tank-card:hover .tank-card-info span {
+    color: #e00000;
+}
+
+h1, h2, h3, p, span, a, .tank-description {
+    caret-color: transparent;
+}
+
+/* Убираем текстовый курсор на странице танка */
+.tank-page,
+.tank-page * {
+    caret-color: transparent;
+}

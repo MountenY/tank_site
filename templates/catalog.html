@@ -1,0 +1,63 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ generation.name }} — Каталог{% endblock %}
+
+{% block content %}
+
+<section class="catalog-page">
+
+    <div class="page-heading">
+
+        <span class="hero-label">ТАНКОВАЯ ЭНЦИКЛОПЕДИЯ</span>
+
+        <h1>{{ generation.name }}</h1>
+
+        <p>
+            Выберите танк для просмотра информации
+        </p>
+
+    </div>
+
+
+    <div class="tank-grid">
+
+        {% for tank in generation.tanks %}
+
+        <a class="tank-card"
+           href="{{ url_for('tank_page',
+                generation_name=generation.folder,
+                tank_name=tank.folder) }}">
+
+            <div class="tank-card-image">
+
+                <img
+                    src="{{ url_for('tank_image',
+                        generation_name=generation.folder,
+                        tank_name=tank.folder,
+                        image_name=tank.image) }}"
+                    alt="{{ tank.name }}">
+
+            </div>
+
+            <div class="tank-card-info">
+
+                <h3>{{ tank.name }}</h3>
+
+                <span>Подробнее →</span>
+
+            </div>
+
+        </a>
+
+        {% else %}
+
+        <p>В этом поколении пока нет танков.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

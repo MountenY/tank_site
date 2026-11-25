@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Танковая энциклопедия{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='star.png') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header class="header">
+    <a href="/" class="logo">★</a>
+
+    <nav class="navigation">
+        <a href="/" class="{% if request.path == '/' %}active{% endif %}">
+            Главная
+        </a>
+
+        <a href="/#generations"
+            class="{% if '/catalog/' in request.path %}active{% endif %}">
+            Каталог
+        </a>
+
+        <a href="/about"
+           class="{% if request.path == '/about' %}active{% endif %}">
+            О проекте
+        </a>
+    </nav>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ tank.name }}{% endblock %}
+
+{% block content %}
+
+<section class="tank-page">
+
+    <div class="tank-page-heading">
+
+        <div class="tank-title-block">
+
+            <span class="hero-label">
+                {{ generation.name }}
+            </span>
+
+            <h1>{{ tank.name }}</h1>
+
+        </div>
+
+    </div>
+
+
+    <div class="tank-layout">
+
+        <div class="tank-text">
+
+            <div class="description-line"></div>
+
+            <div class="tank-description">
+                {{ tank.description }}
+            </div>
+
+        </div>
+
+
+        <div class="tank-visual">
+
+            <img
+                src="{{ url_for('tank_image',
+                    generation_name=generation.folder,
+                    tank_name=tank.folder,
+                    image_name=tank.image) }}"
+                alt="{{ tank.name }}">
+
+        </div>
+
+    </div>
+
+
+    <a href="{{ url_for('catalog',
+             generation_name=generation.folder) }}"
+       class="back-link">
+        ← Назад к поколению
+    </a>
+
+</section>
+
+{% endblock %}
