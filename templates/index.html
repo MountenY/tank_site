@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block title %}Главная{% endblock %}
@@ -32,60 +31,61 @@
 
 </section>
 
-
 <section class="generation-section" id="generations">
 
     <h2>Выберите поколение танков</h2>
 
     <div class="generation-grid">
 
-    {% set roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'] %}
+        {% set roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'] %}
 
-    {% set periods = [
-        '1945–1949',
-        '1949–1953',
-        '1953–1958',
-        '1958–1963',
-        '1963–1968',
-        '1968–1972',
-        '1972–1976',
-        '1976–1980',
-        '1980–1985',
-        '1985–1990'
-    ] %}
+        {% set periods = [
+            '1945–1949',
+            '1949–1953',
+            '1953–1958',
+            '1958–1963',
+            '1963–1968',
+            '1968–1972',
+            '1972–1976',
+            '1976–1980',
+            '1980–1985',
+            '1985–1990'
+        ] %}
 
-    {% for generation in generations %}
+        {% for generation in generations %}
 
-    <a class="generation-card"
-       href="{{ url_for('catalog', generation_name=generation.folder) }}">
+        <a class="generation-card"
+           href="{{ url_for('catalog', generation_slug=generation.slug) }}">
 
-        <span class="generation-roman">
-            {{ roman[loop.index0] }}
-        </span>
+            <span class="generation-roman">
+                {{ roman[loop.index0] }}
+            </span>
 
-        <div class="generation-period">
-            <span>ПОКОЛЕНИЕ</span>
-            <span>({{ periods[loop.index0] }})</span>
-        </div>
+            <div class="generation-period">
+                <span>ПОКОЛЕНИЕ</span>
+                <span>({{ periods[loop.index0] }})</span>
+            </div>
 
-        {% set count = generation.tanks|length %}
+            {% set count = generation.tanks|length %}
 
-        <span class="generation-count">
-            {{ count }}
-            {% if count % 10 == 1 and count % 100 != 11 %}
-                танк
-            {% elif count % 10 >= 2 and count % 10 <= 4 and (count % 100 < 12 or count % 100 > 14) %}
-                танка
-            {% else %}
-                танков
-            {% endif %}
-        </span>
+            <span class="generation-count">
+                {{ count }}
 
-    </a>
+                {% if count % 10 == 1 and count % 100 != 11 %}
+                    танк
+                {% elif count % 10 in [2, 3, 4] and count % 100 not in [12, 13, 14] %}
+                    танка
+                {% else %}
+                    танков
+                {% endif %}
 
-    {% endfor %}
+            </span>
 
-</div>
+        </a>
+
+        {% endfor %}
+
+    </div>
 
 </section>
 

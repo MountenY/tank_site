@@ -1,6 +1,7 @@
 
 from pathlib import Path
 from flask import Flask, render_template, abort, send_from_directory
+import re
 
 app = Flask(__name__)
 
@@ -10,8 +11,31 @@ TANKS_DIR = BASE_DIR / "tanks"
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
 
 
+def slugify(text):
+    """Преобразует русское название в латинский URL."""
+
+    translit = {
+        "а": "a", "б": "b", "в": "v", "г": "g",
+        "д": "d", "е": "e", "ё": "yo", "ж": "zh",
+        "з": "z", "и": "i", "й": "y", "к": "k",
+        "л": "l", "м": "m", "н": "n", "о": "o",
+        "п": "p", "р": "r", "с": "s", "т": "t",
+        "у": "u", "ф": "f", "х": "kh", "ц": "ts",
+        "ч": "ch", "ш": "sh", "щ": "shch",
+        "ъ": "", "ы": "y", "ь": "", "э": "e",
+        "ю": "yu", "я": "ya"
+    }
+
+    text = text.lower()
+    text = "".join(translit.get(char, char) for char in text)
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+
+    return text.strip("-")
+
+
 def load_tanks():
     """Автоматически собирает все танки из папок."""
+
     generations = []
 
     if not TANKS_DIR.exists():
@@ -47,7 +71,6 @@ def load_tanks():
                 continue
 
             image = images[0]
-
             description = ""
 
             if text_files:
@@ -58,6 +81,7 @@ def load_tanks():
             tanks.append({
                 "name": tank_folder.name,
                 "folder": tank_folder.name,
+                "slug": slugify(tank_folder.name),
                 "image": image.name,
                 "description": description
             })
@@ -65,28 +89,29 @@ def load_tanks():
         generations.append({
             "name": generation_folder.name,
             "folder": generation_folder.name,
+            "slug": slugify(generation_folder.name),
             "tanks": tanks
         })
 
     return generations
 
 
-def get_generation(generation_name):
+def get_generation(generation_slug):
     for generation in load_tanks():
-        if generation["folder"] == generation_name:
+        if generation["slug"] == generation_slug:
             return generation
 
     return None
 
 
-def get_tank(generation_name, tank_name):
-    generation = get_generation(generation_name)
+def get_tank(generation_slug, tank_slug):
+    generation = get_generation(generation_slug)
 
     if not generation:
         return None, None
 
     for tank in generation["tanks"]:
-        if tank["folder"] == tank_name:
+        if tank["slug"] == tank_slug:
             return generation, tank
 
     return generation, None
@@ -102,9 +127,9 @@ def index():
     )
 
 
-@app.route("/catalog/<generation_name>")
-def catalog(generation_name):
-    generation = get_generation(generation_name)
+@app.route("/catalog/<generation_slug>")
+def catalog(generation_slug):
+    generation = get_generation(generation_slug)
 
     if not generation:
         abort(404)
@@ -115,11 +140,11 @@ def catalog(generation_name):
     )
 
 
-@app.route("/tank/<generation_name>/<tank_name>")
-def tank_page(generation_name, tank_name):
+@app.route("/tank/<generation_slug>/<tank_slug>")
+def tank_page(generation_slug, tank_slug):
     generation, tank = get_tank(
-        generation_name,
-        tank_name
+        generation_slug,
+        tank_slug
     )
 
     if not tank:
@@ -132,15 +157,21 @@ def tank_page(generation_name, tank_name):
     )
 
 
-@app.route("/tank_image/<generation_name>/<tank_name>/<image_name>")
-def tank_image(generation_name, tank_name, image_name):
-    folder = TANKS_DIR / generation_name / tank_name
+@app.route("/tank_image/<generation_slug>/<tank_slug>/<image_name>")
+def tank_image(generation_slug, tank_slug, image_name):
+    generation, tank = get_tank(
+        generation_slug,
+        tank_slug
+    )
 
-    if not folder.exists():
+    if not tank:
         abort(404)
 
-    # Проверяем, что файл действительно находится в папке танка
-    if image_name not in [file.name for file in folder.iterdir()]:
+    folder = TANKS_DIR / generation["folder"] / tank["folder"]
+
+    image_path = folder / image_name
+
+    if not image_path.is_file():
         abort(404)
 
     return send_from_directory(folder, image_name)

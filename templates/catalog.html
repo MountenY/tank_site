@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block title %}{{ generation.name }} — Каталог{% endblock %}
@@ -19,22 +18,21 @@
 
     </div>
 
-
     <div class="tank-grid">
 
         {% for tank in generation.tanks %}
 
         <a class="tank-card"
            href="{{ url_for('tank_page',
-                generation_name=generation.folder,
-                tank_name=tank.folder) }}">
+                generation_slug=generation.slug,
+                tank_slug=tank.slug) }}">
 
             <div class="tank-card-image">
 
                 <img
                     src="{{ url_for('tank_image',
-                        generation_name=generation.folder,
-                        tank_name=tank.folder,
+                        generation_slug=generation.slug,
+                        tank_slug=tank.slug,
                         image_name=tank.image) }}"
                     alt="{{ tank.name }}">
 
